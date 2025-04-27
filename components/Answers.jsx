@@ -1,12 +1,50 @@
 import Options from "./Options";
+import { useCallback, useRef } from "react";
 
-export default function Answers({ answerOptions }) {
+export default function Answers({
+  answers,
+  selectedAnswer,
+  answerState,
+  onSelect,
+}) {
+  const shuffledAnswer = useRef();
+  if (!shuffledAnswer.current) {
+    shuffledAnswer.current = [...answers];
+
+    shuffledAnswer.current.sort(() => Math.random() - 0.5);
+  }
+
   return (
     <ul id="answers">
-      <Options text={answerOptions[0]} />
-      <Options text={answerOptions[1]} />
-      <Options text={answerOptions[2]} />
-      <Options text={answerOptions[3]} />
+      {shuffledAnswer.current.map((answer) => {
+        const isSelected = answer === selectedAnswer;
+
+        let cssClass = "";
+
+        if (isSelected && answerState === "answered") {
+          cssClass = "selected";
+        }
+
+        if (
+          (answerState === "correct" || answerState === "wrong") &&
+          isSelected
+        ) {
+          cssClass = answerState;
+        }
+
+        return (
+          <li key={answer} className="answer">
+            <button
+              className={cssClass}
+              onClick={() => {
+                onSelect(answer);
+              }}
+            >
+              {answer}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 }
