@@ -1,18 +1,12 @@
-export default function Answers() {
+import Options from "./Options";
+
+export default function Answers({ answerOptions }) {
   return (
     <ul id="answers">
-      <p className="answer">
-        <button>Option 1</button>
-      </p>
-      <p className="answer">
-        <button>Option 2</button>
-      </p>
-      <p className="answer">
-        <button>Option 3</button>
-      </p>
-      <p className="answer">
-        <button>Option 4</button>
-      </p>
+      <Options text={answerOptions[0]} />
+      <Options text={answerOptions[1]} />
+      <Options text={answerOptions[2]} />
+      <Options text={answerOptions[3]} />
     </ul>
   );
 }

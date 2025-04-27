@@ -1,8 +1,8 @@
-export default function Quiz() {
+export default function Questions({ text }) {
   return (
     <div id="question">
       <progress value="30" max="100"></progress>
-      <h2> Hello </h2>
+      <h2> {text} </h2>
     </div>
   );
 }
