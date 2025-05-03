@@ -5,8 +5,6 @@ export default function QuestionTimer({ timeout, onTimeOut, mode }) {
 
   useEffect(() => {
     const timer = setTimeout(onTimeOut, timeout);
-    // console.log("setTimeout");
-
     return () => {
       clearTimeout(timer);
     };
@@ -28,7 +26,7 @@ export default function QuestionTimer({ timeout, onTimeOut, mode }) {
       id="question-time"
       max={timeout}
       value={remainingTime}
-      className={mode}
+      className={mode ? "answered" : ""}
     />
   );
 }

@@ -9,42 +9,42 @@ export default function Questions({
   answers,
   onSelect,
 }) {
-  const [userAnswer, setUserAnswer] = useState({
+  const [answer, setanswer] = useState({
     selectedAnswer: "",
     isCorrect: null,
   });
 
   let timer = 10000;
 
-  if (userAnswer.selectedAnswer) {
+  if (answer.selectedAnswer) {
     timer = 1000;
   }
-  if (userAnswer.isCorrect != null) {
+  if (answer.isCorrect != null) {
     timer = 2000;
   }
 
   function handleSelectAnswer(answer) {
-    setUserAnswer({
+    setanswer({
       selectedAnswer: answer,
       isCorrect: null,
     });
 
     setTimeout(() => {
-      setUserAnswer({
+      setanswer({
         selectedAnswer: answer,
         isCorrect: QUESTIONS[activeIndex].answers[0] === answer,
       });
     }, 1000);
     setTimeout(() => {
-      onSelect(userAnswer);
+      onSelect(answer);
     }, 2000);
   }
 
   let answerState = "";
 
-  if (userAnswer.selectedAnswer && userAnswer.isCorrect != null) {
-    answerState = userAnswer.isCorrect ? "correct" : "wrong";
-  } else if (userAnswer.selectedAnswer) {
+  if (answer.selectedAnswer && answer.isCorrect != null) {
+    answerState = answer.isCorrect ? "correct" : "wrong";
+  } else if (answer.selectedAnswer) {
     answerState = "selected";
   }
 
@@ -54,7 +54,7 @@ export default function Questions({
         <QuestionTimer
           key={timer}
           timeout={timer}
-          onTimeOut={userAnswer.selectedAnswer === "" ? onSkipAnswer : null}
+          onTimeOut={answer.selectedAnswer === "" ? onSkipAnswer : null}
           mode={answerState}
         />
         <h2> {QUESTIONS[activeIndex].text} </h2>
@@ -62,7 +62,7 @@ export default function Questions({
 
       <Answers
         answers={answers}
-        selectedAnswer={userAnswer.selectedAnswer}
+        selectedAnswer={answer.selectedAnswer}
         answerState={answerState}
         onSelect={handleSelectAnswer}
       />
